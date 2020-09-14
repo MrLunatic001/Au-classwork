@@ -19,3 +19,5 @@ else:
 
 name = input("Enter a name: ")
 print("The length of the name is: " + str(len(name)))
+
+## ACS - Good. We will look at programming conventions in the lesson

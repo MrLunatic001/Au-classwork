@@ -21,3 +21,4 @@ miles_per_gallon = float(car_mileage_past - car_mileage_present) / gallon
 print("The number of miles per gallon for your car is : " + str(round(miles_per_gallon, 2)))
 
 
+### Is this working. I tried 12700 and 12940 and 70 and got -.075?? Can't see how it is negative. 

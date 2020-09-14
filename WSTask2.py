@@ -30,3 +30,6 @@ while True:
         print("Enter an integer")
 total_paint = ((room_length * room_width - unpaint_length * unpaint_width) * num_coats) / 11
 print("The total amount of paint required to paint the room is: " + str(round(total_paint, 2)) + " liters.")
+
+### ACS - As disucssed in class. Don't use break in your code. The loop needs a termination condition you can rely on!
+### ACS - Code alos needs annotating. But it all works well.
