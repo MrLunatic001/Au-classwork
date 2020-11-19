@@ -28,6 +28,9 @@ class wall(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
+    def get_pos(self):
+        return self.rect.right, self.rect.left, self.rect.top, self.rect.bottom
+
 
 # Player Class
 
@@ -51,11 +54,19 @@ class player(pygame.sprite.Sprite):
     # Defining functions
 
     def get_pos(self):
-        return self.rect.x, self.rect.y
+        return self.rect.right, self.rect.left, self.rect.top, self.rect.bottom
 
-    def set_pos(self, x, y):
-        self.rect.x = x
-        self.rect.y = y
+    def set_right(self, x):
+        self.rect.right = x
+
+    def set_left(self, x):
+        self.rect.left = x
+
+    def set_top(self, x):
+        self.rect.top = x
+
+    def set_bottom(self, x):
+        self.rect.bottom = x
 
     def move_up(self):
         self.speed_y = -20
@@ -76,6 +87,18 @@ class player(pygame.sprite.Sprite):
     def update(self):
         self.rect.x += self.speed_x
         self.rect.y += self.speed_y
+        if pygame.sprite.spritecollide(main_player, wall_group, False):
+            player_pos = main_player.get_pos()
+            if player_pos[1] < 40:
+                main_player.set_left(40)
+            elif player_pos[0] > 960:
+                main_player.set_right(960)
+            elif player_pos[2] < 40:
+                main_player.set_top(40)
+            elif player_pos[3] > 960:
+                main_player.set_bottom(960)
+
+
 
 
 # Create an All Sprites Group object
@@ -86,7 +109,7 @@ player_group = pygame.sprite.Group()
 
 # Instantiate a player object
 
-main_player = player(500, 500, WHITE, 50, 10)
+main_player = player(500, 500, WHITE, 30, 30)
 all_sprites_group.add(main_player)
 player_group.add(main_player)
 
@@ -152,16 +175,7 @@ while not done:
     # --- Game logic should go here
 
     # Checks if player collides with wall, if true, set the play position 1 pixel next to the wall
-    if pygame.sprite.spritecollide(main_player, wall_group, False):
-        player_pos = main_player.get_pos()
-        if player_pos[0] >= 910:
-            main_player.set_pos(909, player_pos[1])
-        elif player_pos[0] <= 90:
-            main_player.set_pos(41, player_pos[1])
-        elif player_pos[1] >= 950:
-            main_player.set_pos(player_pos[0], 949)
-        elif player_pos[1] <= 50:
-            main_player.set_pos(player_pos[0], 41)
+
 
 
 
