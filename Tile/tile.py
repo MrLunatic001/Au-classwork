@@ -86,18 +86,25 @@ class player(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.x += self.speed_x
+        collide_list = pygame.sprite.spritecollide(main_player, wall_group, False)
+        if collide_list:
+            for block in collide_list:
+                if self.speed_x < 0:
+                    main_player.set_left(block.get_pos()[0])
+                elif self.speed_x > 0:
+                    main_player.set_right(block.get_pos()[1])
+                elif self.speed_y < 0:
+                    main_player.set_top(block.get_pos()[3])
+                elif self.speed_y > 0:
+                    main_player.set_bottom(block.get_pos()[2])
         self.rect.y += self.speed_y
-        if pygame.sprite.spritecollide(main_player, wall_group, False):
-            player_pos = main_player.get_pos()
-            if player_pos[1] < 40:
-                main_player.set_left(40)
-            elif player_pos[0] > 960:
-                main_player.set_right(960)
-            elif player_pos[2] < 40:
-                main_player.set_top(40)
-            elif player_pos[3] > 960:
-                main_player.set_bottom(960)
-
+        collide_list = pygame.sprite.spritecollide(main_player, wall_group, False)
+        if collide_list:
+            for block in collide_list:
+                if self.speed_y < 0:
+                    main_player.set_top(block.get_pos()[3])
+                elif self.speed_y > 0:
+                    main_player.set_bottom(block.get_pos()[2])
 
 
 
@@ -120,7 +127,31 @@ pygame.display.set_caption("My Game")
 
 # Loop until the user clicks the close button.
 done = False
-template_wall = "/////////////////////////"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/00000000000000000000000/"+"/////////////////////////"
+template_wall =[ "/////////////////////////",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/00000000000000000000000/",
+                 "/////////////////////////"]
 
 
 
@@ -132,18 +163,19 @@ counter = 1
 # Iterates through each character in the wall template.
 for element in template_wall:
     # If the character is "/", make a wall at that position, if not, skip the position.
-    if element == "/":
-        new_wall = wall(RED, x, y)
-        all_sprites_group.add(new_wall)
-        wall_group.add(new_wall)
+    for block in element:
+        if block == "/":
+            new_wall = wall(RED, x, y)
+            all_sprites_group.add(new_wall)
+            wall_group.add(new_wall)
 
-    counter += 1
-    x += 40
-    # If the number of walls reaches 25 (maximum width of the window), go to the next line
-    if counter > 25:
-        counter = 1
-        y += 40
-        x = 0
+        counter += 1
+        x += 40
+        # If the number of walls reaches 25 (maximum width of the window), go to the next line
+        if counter > 25:
+            counter = 1
+            y += 40
+            x = 0
 
 
 
