@@ -85,6 +85,7 @@ class player(pygame.sprite.Sprite):
         self.speed_x = 0
 
     def update(self):
+        #Check x coordinates first
         self.rect.x += self.speed_x
         collide_list = pygame.sprite.spritecollide(main_player, wall_group, False)
         if collide_list:
@@ -121,7 +122,7 @@ all_sprites_group.add(main_player)
 player_group.add(main_player)
 
 # Set the width and height of the screen [width, height]
-size = (1000, 1000)
+size = (1200, 1000)
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("My Game")
 
