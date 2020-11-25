@@ -2,43 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="51cb4619-2af9-4e21-8fe5-8d0469df1aee" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Tile/movement/down0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/down1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/down2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/down3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/down4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/down5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/down6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/down7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/down8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/left0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/left1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/left2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/left3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/left4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/left5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/left6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/left7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/left8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/right0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/right1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/right2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/right3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/right4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/right5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/right6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/right7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/right8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/up0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/up1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/up2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/up3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/up4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/up5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/up6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/up7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tile/movement/up8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tile/keys/keys0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tile/keys/keys1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tile/keys/keys2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tile/keys/keys3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tile/keys/keys4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tile/keys/keys5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tile/keys/keys6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tile/keys/keys7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tile/keys/keys8.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tile/movement/down0.png" beforeDir="false" afterPath="$PROJECT_DIR$/Tile/movement/down0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tile/movement/left0.png" beforeDir="false" afterPath="$PROJECT_DIR$/Tile/movement/left0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tile/movement/left1.png" beforeDir="false" afterPath="$PROJECT_DIR$/Tile/movement/left1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tile/tile.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tile/tile.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -67,10 +43,11 @@
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Tile" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Tile/keys" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Tile/keys" />
       <recent name="$PROJECT_DIR$/Tile" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
