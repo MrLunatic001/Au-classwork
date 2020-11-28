@@ -296,6 +296,7 @@ class game():
                 self.handgun = False
                 self.machinegun = False
                 self.rocketlauncher = False
+                self.bullets = 0
 
             # Defining functions
 
@@ -540,6 +541,7 @@ class game():
 
                     elif event.key == pygame.K_LEFT:
                         main_player.move_left()
+                    
 
 
 
