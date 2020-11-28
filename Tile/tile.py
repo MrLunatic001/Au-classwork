@@ -8,7 +8,8 @@ WHITE = (255, 255, 255)
 BLUE = (50, 50, 255)
 YELLOW = (200, 200, 0)
 GREEN = (0, 200, 0)
-RED = (200, 0, 0)
+RED = (100, 0, 0)
+LightRed = (255, 0, 0)
 GREY = (192, 192, 192)
 
 # Loading sprites
@@ -39,27 +40,30 @@ for i in range(3):
 for i in range(7):
     if i < 2:
         handguns.append(pygame.transform.scale(pygame.image.load('guns/' + 'handgun' + str(i) + '.png'), (30, 30)))
-        machineguns.append(pygame.transform.scale(pygame.image.load('guns/' + 'machinegun' + str(i) + '.png'), (100, 30)))
+        machineguns.append(
+            pygame.transform.scale(pygame.image.load('guns/' + 'machinegun' + str(i) + '.png'), (100, 30)))
         rocketlaunchers.append(
             pygame.transform.scale(pygame.image.load('guns/' + 'rocketlauncher' + str(i) + '.png'), (60, 30)))
     elif i >= 2 and i < 6:
         handguns.append(pygame.transform.scale(pygame.image.load('guns/' + 'handgun' + str(i) + '.png'), (30, 30)))
-        machineguns.append(pygame.transform.scale(pygame.image.load('guns/' + 'machinegun' + str(i) + '.png'), (30, 100)))
+        machineguns.append(
+            pygame.transform.scale(pygame.image.load('guns/' + 'machinegun' + str(i) + '.png'), (30, 100)))
         rocketlaunchers.append(
             pygame.transform.scale(pygame.image.load('guns/' + 'rocketlauncher' + str(i) + '.png'), (30, 60)))
 
     else:
-        handguns.append(pygame.transform.scale(pygame.image.load('guns/' + 'handgun0'  + '.png'), (40, 40)))
-        machineguns.append(pygame.transform.scale(pygame.image.load('guns/' + 'machinegun0'  + '.png'), (130, 50)))
+        handguns.append(pygame.transform.scale(pygame.image.load('guns/' + 'handgun0' + '.png'), (40, 40)))
+        machineguns.append(pygame.transform.scale(pygame.image.load('guns/' + 'machinegun0' + '.png'), (130, 50)))
         rocketlaunchers.append(
             pygame.transform.scale(pygame.image.load('guns/' + 'rocketlauncher0' + '.png'), (70, 50)))
 
 for i in range(4):
     if i <= 1:
-        grenade_launcher_bullets.append(pygame.transform.scale(pygame.image.load('bullets/' + 'grenade' + str(i)  + '.png'), (20, 10)))
+        grenade_launcher_bullets.append(
+            pygame.transform.scale(pygame.image.load('bullets/' + 'grenade' + str(i) + '.png'), (20, 10)))
     else:
-        grenade_launcher_bullets.append(pygame.transform.scale(pygame.image.load('bullets/' + 'grenade' + str(i)  + '.png'), (10, 20)))
-
+        grenade_launcher_bullets.append(
+            pygame.transform.scale(pygame.image.load('bullets/' + 'grenade' + str(i) + '.png'), (10, 20)))
 
 
 # Defining Classes
@@ -104,12 +108,7 @@ class game():
         self.storage_levels = initial_store_list
         self.restart_list = restart_list
 
-
-
-
-    # Class Wall
-
-    def level(self, current_level, LIVES):
+    def level(self, current_level, LIVES, handgun_bool, machinegun_bool, grenade_launcher_bool):
 
         # Defining weapons classes
         class gun(pygame.sprite.Sprite):
@@ -130,32 +129,35 @@ class game():
                 super().__init__(3, image, x, y)
 
             def update(self):
-                if main_player.return_guns()[0] == True:
-                    #Left
+                if main_player.return_guns()[0]:
+                    # Left
                     if main_player.get_speed()[0] < 0 and main_player.get_speed()[1] == 0:
                         self.rect.right = main_player.get_pos()[1]
                         self.image = handguns[0]
-                    #Right
+                    # Right
                     elif main_player.get_speed()[0] > 0 and main_player.get_speed()[1] == 0:
                         self.image = handguns[1]
                         self.rect.left = main_player.get_pos()[0]
-                    #Up Right
-                    elif main_player.get_speed()[1] < 0 and (self.image == handguns[1] or self.image == handguns[4] or self.image == handguns[2]):
+                    # Up Right
+                    elif main_player.get_speed()[1] < 0 and (
+                            self.image == handguns[1] or self.image == handguns[4] or self.image == handguns[2]):
                         self.image = handguns[2]
                         self.rect.left = main_player.get_pos()[0]
-                    #Up Left
-                    elif main_player.get_speed()[1] < 0 and (self.image == handguns[0] or self.image == handguns[5] or self.image == handguns[3]):
+                    # Up Left
+                    elif main_player.get_speed()[1] < 0 and (
+                            self.image == handguns[0] or self.image == handguns[5] or self.image == handguns[3]):
                         self.image = handguns[3]
                         self.rect.right = main_player.get_pos()[1]
-                    #Down Right
-                    elif main_player.get_speed()[1] > 0 and (self.image == handguns[1] or self.image == handguns[2] or self.image == handguns[4]):
+                    # Down Right
+                    elif main_player.get_speed()[1] > 0 and (
+                            self.image == handguns[1] or self.image == handguns[2] or self.image == handguns[4]):
                         self.image = handguns[4]
                         self.rect.left = main_player.get_pos()[0]
-                    #Down Left
-                    elif main_player.get_speed()[1] > 0 and (self.image == handguns[0] or self.image == handguns[3] or self.image == handguns[5]):
+                    # Down Left
+                    elif main_player.get_speed()[1] > 0 and (
+                            self.image == handguns[0] or self.image == handguns[3] or self.image == handguns[5]):
                         self.image = handguns[5]
                         self.rect.right = main_player.get_pos()[1]
-
 
                     self.rect.y = main_player.rect.y + 20
 
@@ -165,35 +167,41 @@ class game():
 
             def update(self):
                 if main_player.return_guns()[2] == True:
-                    #Left
+                    # Left
                     if main_player.get_speed()[0] < 0 and main_player.get_speed()[1] == 0:
                         self.rect.right = main_player.get_pos()[1]
                         self.image = machineguns[1]
-                    #Right
+                    # Right
                     elif main_player.get_speed()[0] > 0 and main_player.get_speed()[1] == 0:
                         self.image = machineguns[0]
                         self.rect.left = main_player.get_pos()[0]
 
-                    #Up Right
-                    elif main_player.get_speed()[1] < 0 and (self.image == machineguns[0] or self.image == machineguns[4] or self.image == machineguns[2]):
+                    # Up Right
+                    elif main_player.get_speed()[1] < 0 and (
+                            self.image == machineguns[0] or self.image == machineguns[4] or self.image == machineguns[
+                        2]):
                         self.image = machineguns[2]
 
-                    #Up Left
-                    elif main_player.get_speed()[1] < 0 and (self.image == machineguns[1] or self.image == machineguns[5] or self.image == machineguns[3]):
+                    # Up Left
+                    elif main_player.get_speed()[1] < 0 and (
+                            self.image == machineguns[1] or self.image == machineguns[5] or self.image == machineguns[
+                        3]):
                         self.image = machineguns[3]
                         self.rect.right = main_player.get_pos()[0]
-                    #Down Right
-                    elif main_player.get_speed()[1] > 0 and (self.image == machineguns[0] or self.image == machineguns[2] or self.image == machineguns[4]):
+                    # Down Right
+                    elif main_player.get_speed()[1] > 0 and (
+                            self.image == machineguns[0] or self.image == machineguns[2] or self.image == machineguns[
+                        4]):
                         self.image = machineguns[4]
                         self.rect.left = main_player.get_pos()[0]
-                    #Down Left
-                    elif main_player.get_speed()[1] > 0 and (self.image == machineguns[1] or self.image == machineguns[3] or self.image == machineguns[5]):
+                    # Down Left
+                    elif main_player.get_speed()[1] > 0 and (
+                            self.image == machineguns[1] or self.image == machineguns[3] or self.image == machineguns[
+                        5]):
                         self.image = machineguns[5]
                         self.rect.right = main_player.get_pos()[0]
 
-
                     self.rect.y = main_player.rect.y + 20
-
 
         class rocket_launcher(gun):
             def __init__(self, image, x, y):
@@ -201,36 +209,43 @@ class game():
 
             def update(self):
                 if main_player.return_guns()[1] == True:
-                    #Left
+                    # Left
                     if main_player.get_speed()[0] < 0 and main_player.get_speed()[1] == 0:
                         self.rect.right = main_player.get_pos()[1]
                         self.image = rocketlaunchers[1]
-                    #Right
+                    # Right
                     elif main_player.get_speed()[0] > 0 and main_player.get_speed()[1] == 0:
                         self.image = rocketlaunchers[0]
                         self.rect.left = main_player.get_pos()[0]
 
-                    #Up Right
-                    elif main_player.get_speed()[1] < 0 and (self.image == rocketlaunchers[0] or self.image == rocketlaunchers[4] or self.image == rocketlaunchers[3]):
+                    # Up Right
+                    elif main_player.get_speed()[1] < 0 and (
+                            self.image == rocketlaunchers[0] or self.image == rocketlaunchers[4] or self.image ==
+                            rocketlaunchers[3]):
                         self.image = rocketlaunchers[3]
                         self.rect.left = main_player.get_pos()[0]
 
-                    #Up Left
-                    elif main_player.get_speed()[1] < 0 and (self.image == rocketlaunchers[1] or self.image == rocketlaunchers[5] or self.image == rocketlaunchers[2]):
+                    # Up Left
+                    elif main_player.get_speed()[1] < 0 and (
+                            self.image == rocketlaunchers[1] or self.image == rocketlaunchers[5] or self.image ==
+                            rocketlaunchers[2]):
                         self.image = rocketlaunchers[2]
                         self.rect.right = main_player.rect.left + 20
 
-                    #Down Right
-                    elif main_player.get_speed()[1] > 0 and (self.image == rocketlaunchers[0] or self.image == rocketlaunchers[3] or self.image == rocketlaunchers[4]):
+                    # Down Right
+                    elif main_player.get_speed()[1] > 0 and (
+                            self.image == rocketlaunchers[0] or self.image == rocketlaunchers[3] or self.image ==
+                            rocketlaunchers[4]):
                         self.image = rocketlaunchers[4]
                         self.rect.left = main_player.get_pos()[0]
 
 
-                    #Down Left
-                    elif main_player.get_speed()[1] > 0 and (self.image == rocketlaunchers[1] or self.image == rocketlaunchers[2] or self.image == rocketlaunchers[5]):
+                    # Down Left
+                    elif main_player.get_speed()[1] > 0 and (
+                            self.image == rocketlaunchers[1] or self.image == rocketlaunchers[2] or self.image ==
+                            rocketlaunchers[5]):
                         self.image = rocketlaunchers[5]
                         self.rect.right = main_player.rect.left + 20
-
 
                     self.rect.y = main_player.rect.y + 20
 
@@ -247,6 +262,12 @@ class game():
                 self.rect.x = x
                 self.rect.y = y
                 self.health = 10
+
+            def hit(self, damage):
+                self.health -= damage
+                if self.health <= 0:
+                    self.remove(all_sprites_group)
+                    self.remove(wall_group)
 
             def get_pos(self):
                 return self.rect.right, self.rect.left, self.rect.top, self.rect.bottom
@@ -292,7 +313,7 @@ class game():
             # Set up attributes for the class player
             global down, up, left, right, main_player, wall_group
 
-            def __init__(self, x, y, width, height, live):
+            def __init__(self, x, y, width, height, live, handgun_bool, machinegun_bool, rocketlauncher_bool):
                 super().__init__()
                 self.speed_y = 0
                 self.speed_x = 0
@@ -304,9 +325,9 @@ class game():
                 self.rect.x = x
                 self.rect.y = y
                 self.keys = 0
-                self.handgun = False
-                self.machinegun = False
-                self.rocketlauncher = False
+                self.handgun = handgun_bool
+                self.machinegun = machinegun_bool
+                self.rocketlauncher = rocketlauncher_bool
                 self.bullets = 0
 
             # Defining functions
@@ -319,32 +340,32 @@ class game():
                         image = handgun.image
                         # Left
                         if image == handguns[0]:
-                            new_bullet = bullet(handgun.rect.left, handgun.rect.y, -20, 0)
+                            new_bullet = bullet(handgun.rect.left, handgun.rect.y, -30, 0)
                             all_sprites_group.add(new_bullet)
                             bullet_group.add(new_bullet)
                         # Right
                         elif image == handguns[1]:
-                            new_bullet = bullet(handgun.rect.right, handgun.rect.y, 20, 0)
+                            new_bullet = bullet(handgun.rect.right, handgun.rect.y, 30, 0)
                             all_sprites_group.add(new_bullet)
                             bullet_group.add(new_bullet)
                         # Up Right
                         elif image == handguns[2]:
-                            new_bullet = bullet(handgun.rect.right, handgun.rect.top, 0, -20)
+                            new_bullet = bullet(handgun.rect.right, handgun.rect.top, 0, -30)
                             all_sprites_group.add(new_bullet)
                             bullet_group.add(new_bullet)
                         # Up Left
                         elif image == handguns[3]:
-                            new_bullet = bullet(handgun.rect.left, handgun.rect.top, 0, -20)
+                            new_bullet = bullet(handgun.rect.left, handgun.rect.top, 0, -30)
                             all_sprites_group.add(new_bullet)
                             bullet_group.add(new_bullet)
                         # Down Right
                         elif image == handguns[4]:
-                            new_bullet = bullet(handgun.rect.right, handgun.rect.bottom, 0, 20)
+                            new_bullet = bullet(handgun.rect.right, handgun.rect.bottom, 0, 30)
                             all_sprites_group.add(new_bullet)
                             bullet_group.add(new_bullet)
                         # Down Left
                         elif image == handguns[5]:
-                            new_bullet = bullet(handgun.rect.left, handgun.rect.bottom, 0, 20)
+                            new_bullet = bullet(handgun.rect.left, handgun.rect.bottom, 0, 30)
                             all_sprites_group.add(new_bullet)
                             bullet_group.add(new_bullet)
                         # Removes a bullet
@@ -354,32 +375,38 @@ class game():
                         image = rocketlauncher.image
                         # Left
                         if image == rocketlaunchers[1]:
-                            new_bullet = rocket(rocketlauncher.rect.left, rocketlauncher.rect.y, -20, 0, grenade_launcher_bullets[1])
+                            new_bullet = rocket(rocketlauncher.rect.left, rocketlauncher.rect.y, -25, 0,
+                                                grenade_launcher_bullets[1])
                             all_sprites_group.add(new_bullet)
                             bullet_group.add(new_bullet)
                         # Right
                         elif image == rocketlaunchers[0]:
-                            new_bullet = rocket(rocketlauncher.rect.right, rocketlauncher.rect.y, 20, 0, grenade_launcher_bullets[0])
+                            new_bullet = rocket(rocketlauncher.rect.right, rocketlauncher.rect.y, 25, 0,
+                                                grenade_launcher_bullets[0])
                             all_sprites_group.add(new_bullet)
                             bullet_group.add(new_bullet)
                         # Up Right
                         elif image == rocketlaunchers[3]:
-                            new_bullet = rocket(rocketlauncher.rect.left, rocketlauncher.rect.top, 0, -20, grenade_launcher_bullets[2])
+                            new_bullet = rocket(rocketlauncher.rect.left, rocketlauncher.rect.top, 0, -25,
+                                                grenade_launcher_bullets[2])
                             all_sprites_group.add(new_bullet)
                             bullet_group.add(new_bullet)
                         # Up Left
                         elif image == rocketlaunchers[2]:
-                            new_bullet = rocket(rocketlauncher.rect.left, rocketlauncher.rect.top, 0, -20, grenade_launcher_bullets[2])
+                            new_bullet = rocket(rocketlauncher.rect.left, rocketlauncher.rect.top, 0, -25,
+                                                grenade_launcher_bullets[2])
                             all_sprites_group.add(new_bullet)
                             bullet_group.add(new_bullet)
                         # Down Right
                         elif image == rocketlaunchers[4]:
-                            new_bullet = rocket(rocketlauncher.rect.left, rocketlauncher.rect.bottom, 0, 20, grenade_launcher_bullets[3])
+                            new_bullet = rocket(rocketlauncher.rect.left, rocketlauncher.rect.bottom, 0, 25,
+                                                grenade_launcher_bullets[3])
                             all_sprites_group.add(new_bullet)
                             bullet_group.add(new_bullet)
                         # Down Left
                         elif image == rocketlaunchers[5]:
-                            new_bullet = rocket(rocketlauncher.rect.left, rocketlauncher.rect.bottom, 0, 20, grenade_launcher_bullets[3])
+                            new_bullet = rocket(rocketlauncher.rect.left, rocketlauncher.rect.bottom, 0, 25,
+                                                grenade_launcher_bullets[3])
                             all_sprites_group.add(new_bullet)
                             bullet_group.add(new_bullet)
 
@@ -425,11 +452,19 @@ class game():
                         # Removes a bullet
                         self.bullets -= 1
 
-
             def set_bullets(self, bullets):
                 self.bullets += bullets
 
-
+            def remove_guns(self):
+                if self.handgun:
+                    all_sprites_group.remove(handgun)
+                elif self.machinegun:
+                    all_sprites_group.remove(machinegun)
+                elif self.rocketlauncher:
+                    all_sprites_group.remove(rocketlauncher)
+                self.handgun = False
+                self.machinegun = False
+                self.rocketlauncher = False
 
             def get_handgun(self):
                 self.handgun = True
@@ -516,7 +551,7 @@ class game():
         # Enemy class inherites Player class
         class Enemy(player):
             def __init__(self, x, y, width, height, speed_x, speed_y):
-                super().__init__(x, y, width, height, 3)
+                super().__init__(x, y, width, height, 3, False, False, False)
                 self.image = enemy_kim[0]
                 self.image_count = 0
                 self.health = 3
@@ -544,6 +579,12 @@ class game():
                     if self.speed_y != 0:
                         self.speed_y *= -1
 
+            def hit(self, damage):
+                self.health -= damage
+                if self.health <= 0:
+                    self.remove(all_sprites_group)
+                    self.remove(enemy_group)
+
         class bullet(pygame.sprite.Sprite):
 
             def __init__(self, x, y, speed_x, speed_y):
@@ -555,7 +596,6 @@ class game():
                 self.rect.y = y
                 self.speed_x = speed_x
                 self.speed_y = speed_y
-
 
             def update(self):
                 self.rect.y += self.speed_y
@@ -572,8 +612,6 @@ class game():
 
             def set_image(self, image):
                 self.image = image
-
-
 
         # Create an All Sprites Group object
 
@@ -633,7 +671,7 @@ class game():
                     all_sprites_group.add(new_enemy)
                     enemy_group.add(new_enemy)
                 elif block == "P":
-                    main_player = player(x, y, 30, 30, LIVES)
+                    main_player = player(x, y, 30, 30, LIVES, handgun_bool, machinegun_bool, grenade_launcher_bool)
                     all_sprites_group.add(main_player)
                     player_group.add(main_player)
                 elif block == "H":
@@ -657,6 +695,19 @@ class game():
                     y += 40
                     x = 0
 
+        # Spawn guns if player already have one
+        if handgun_bool:
+            handgun = hand_gun(handguns[1], main_player.get_pos()[1], main_player.rect.y - 20)
+            main_player.set_bullets(12)
+            all_sprites_group.add(handgun)
+        if machinegun_bool:
+            machinegun = machine_gun(machineguns[0], main_player.get_pos()[1], main_player.rect.y - 20)
+            main_player.set_bullets(50)
+            all_sprites_group.add(machinegun)
+        if grenade_launcher_bool:
+            main_player.set_bullets(7)
+            rocketlauncher = rocket_launcher(rocketlaunchers[0], main_player.get_pos()[1], main_player.rect.y - 20)
+            all_sprites_group.add(rocketlauncher)
 
         # Portal spawned is False
         spawned = False
@@ -689,11 +740,6 @@ class game():
                     elif event.key == pygame.K_LEFT:
                         main_player.move_left()
 
-
-
-
-
-
                 # User releases a key
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_UP:
@@ -704,9 +750,8 @@ class game():
                         main_player.stop_x()
                     elif event.key == pygame.K_LEFT:
                         main_player.stop_x()
-                    elif event.key == pygame.K_SPACE:
+                    if event.key == pygame.K_SPACE:
                         main_player.shoot()
-
 
                 # Checks if any key is pressed and update the player movement accordingly
                 pressed = pygame.key.get_pressed()
@@ -722,9 +767,6 @@ class game():
 
                     elif pressed[pygame.K_LEFT]:
                         main_player.move_left()
-
-
-
 
             # --- Game logic should go here
             keys_collide_list = pygame.sprite.spritecollide(main_player, key_group, True)
@@ -771,22 +813,46 @@ class game():
 
             # Creates a gun if player collides with gun objects
             if handgun_collide_group:
+                main_player.remove_guns()
                 main_player.get_handgun()
                 handgun = hand_gun(handguns[1], main_player.get_pos()[1], main_player.rect.y - 20)
                 main_player.set_bullets(20)
                 all_sprites_group.add(handgun)
             if machine_collide_group:
+                main_player.remove_guns()
                 main_player.get_machine()
                 main_player.set_bullets(100)
                 machinegun = machine_gun(machineguns[0], main_player.get_pos()[1], main_player.rect.y - 20)
                 all_sprites_group.add(machinegun)
             if rocket_collide_group:
+                main_player.remove_guns()
                 main_player.get_rocket()
                 main_player.set_bullets(7)
                 rocketlauncher = rocket_launcher(rocketlaunchers[0], main_player.get_pos()[1], main_player.rect.y - 20)
                 all_sprites_group.add(rocketlauncher)
 
+            # Checks if bullet hits anything
 
+            # Walls
+            bullet_wall_group = pygame.sprite.groupcollide(wall_group, bullet_group, False, True)
+            if bullet_wall_group:
+                for walls in bullet_wall_group:
+                    if main_player.handgun:
+                        walls.hit(3)
+                    elif main_player.machinegun:
+                        walls.hit(1)
+                    elif main_player.rocketlauncher:
+                        walls.hit(10)
+            # Enemies
+            bullet_enemy_group = pygame.sprite.groupcollide(enemy_group, bullet_group, False, True)
+            if bullet_enemy_group:
+                for walls in bullet_enemy_group:
+                    if main_player.handgun:
+                        walls.hit(3)
+                    elif main_player.machinegun:
+                        walls.hit(1)
+                    elif main_player.rocketlauncher:
+                        walls.hit(10)
 
             # Ends the level if player touches the portal
             if pygame.sprite.groupcollide(player_group, portal_group, True, True):
@@ -852,7 +918,7 @@ class game():
                     down_counter = 0
 
             # Checks if player shoots the machine gun
-            elif pressed[pygame.K_SPACE]:
+            if pressed[pygame.K_SPACE]:
                 main_player.spray()
 
             # --- Go ahead and update the screen with what we've drawn.
@@ -861,8 +927,10 @@ class game():
             # --- Limit to 60 frames per second
             clock.tick(60)
 
+        # Resets level
         if RETURN_CODE == 1:
-            self.level(current_level, main_player.get_items()[0])
+            self.level(current_level, main_player.get_items()[0], main_player.handgun, main_player.machinegun,
+                       main_player.rocketlauncher)
         elif RETURN_CODE == 2:
             self.loose()
         elif RETURN_CODE == 3:
@@ -872,7 +940,8 @@ class game():
             # Go to the next level if there are levels in the list
             else:
                 self.LEVEL_COUNTER += 1
-                self.level(self.storage_levels.pop(), main_player.get_items()[0])
+                self.level(self.storage_levels.pop(), main_player.get_items()[0], main_player.handgun,
+                           main_player.machinegun, main_player.rocketlauncher)
 
     def start(self):
 
@@ -919,7 +988,7 @@ class game():
             # --- Limit to 60 frames per second
             clock.tick(60)
 
-        self.level(self.storage_levels.pop(), 3)
+        self.level(self.storage_levels.pop(), 3, False, False, False)
 
     def loose(self):
 
@@ -932,7 +1001,7 @@ class game():
         pygame.display.set_caption("Game Over!")
         font = pygame.font.SysFont('Calibri', 50, True, False)
         restart_button = button(GREEN, 470, 600, 300, 150, "Restart")
-        quit_button = button(RED, 470, 800, 300, 150, "Quit")
+        quit_button = button((200, 0, 0), 470, 800, 300, 150, "Quit")
 
         # -------- Main Program Loop -----------
         while not done:
@@ -960,7 +1029,7 @@ class game():
             screen.fill(BLACK)
 
             # --- Drawing code should go here
-            loose_message = font.render("You loose!", True, RED)
+            loose_message = font.render("You loose!", True, (255, 0, 0))
             screen.blit(loose_message, [500, 400])
 
             restart_button.draw(screen)
@@ -975,7 +1044,7 @@ class game():
         # Refill the levels list:
         self.storage_levels = copy.deepcopy(self.restart_list)
         self.LEVEL_COUNTER = 1
-        self.level(self.storage_levels.pop(), 3)
+        self.level(self.storage_levels.pop(), 3, False, False, False)
 
     def win(self):
         # Used to manage how fast the screen updates
@@ -987,7 +1056,7 @@ class game():
         pygame.display.set_caption("Congratulations!")
         font = pygame.font.SysFont('Calibri', 50, True, False)
         restart_button = button(GREEN, 470, 600, 300, 150, "Restart")
-        quit_button = button(RED, 470, 800, 300, 150, "Quit")
+        quit_button = button((200, 0, 0), 470, 800, 300, 150, "Quit")
 
         # -------- Main Program Loop -----------
         while not done:
@@ -1030,7 +1099,7 @@ class game():
         # Refill the levels list:
         self.storage_levels = copy.deepcopy(self.restart_list)
         self.LEVEL_COUNTER = 1
-        self.level(self.storage_levels.pop(), 3)
+        self.level(self.storage_levels.pop(), 3, False, False, False)
 
 
 levels = list()
