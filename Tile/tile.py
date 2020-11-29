@@ -854,7 +854,7 @@ class game():
                     bullet_group.remove(bul)
                     all_sprites_group.remove(bul)
 
-            # Checks if all 3 keys are collected
+            # Checks if all keys are collected
 
             if main_player.get_items()[1] == key_counter:
                 if not spawned:
@@ -1192,7 +1192,7 @@ restart = list()
 # Scans through the levels directory and stores them in the levels/ restart list
 
 for root, dirs, files in os.walk('levels'):
-    for i in range(len(files)):
+    for i in range(len(files) - 1):
         temp_counter = 0
         temp_array = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
                       ""]
