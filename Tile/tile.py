@@ -57,8 +57,14 @@ for i in range(7):
         rocketlaunchers.append(
             pygame.transform.scale(pygame.image.load('guns/' + 'rocketlauncher0' + '.png'), (70, 50)))
 
-for i in range(4):
+for i in range(6):
     if i <= 1:
+        grenade_launcher_bullets.append(
+            pygame.transform.scale(pygame.image.load('bullets/' + 'grenade' + str(i) + '.png'), (20, 10)))
+    elif i == 2 or i == 3:
+        grenade_launcher_bullets.append(
+            pygame.transform.scale(pygame.image.load('bullets/' + 'grenade' + str(i) + '.png'), (10, 20)))
+    elif i == 4:
         grenade_launcher_bullets.append(
             pygame.transform.scale(pygame.image.load('bullets/' + 'grenade' + str(i) + '.png'), (20, 10)))
     else:
@@ -379,10 +385,31 @@ class game():
                                                 grenade_launcher_bullets[1])
                             all_sprites_group.add(new_bullet)
                             bullet_group.add(new_bullet)
+
+                            new_bullet = rocket(rocketlauncher.rect.left, rocketlauncher.rect.y + 40, -25, 0,
+                                                grenade_launcher_bullets[4])
+                            all_sprites_group.add(new_bullet)
+                            bullet_group.add(new_bullet)
+
+                            new_bullet = rocket(rocketlauncher.rect.left, rocketlauncher.rect.y - 40, -25, 0,
+                                                grenade_launcher_bullets[4])
+                            all_sprites_group.add(new_bullet)
+                            bullet_group.add(new_bullet)
+
                         # Right
                         elif image == rocketlaunchers[0]:
                             new_bullet = rocket(rocketlauncher.rect.right, rocketlauncher.rect.y, 25, 0,
                                                 grenade_launcher_bullets[0])
+                            all_sprites_group.add(new_bullet)
+                            bullet_group.add(new_bullet)
+
+                            new_bullet = rocket(rocketlauncher.rect.right, rocketlauncher.rect.y + 40, 25, 0,
+                                                grenade_launcher_bullets[4])
+                            all_sprites_group.add(new_bullet)
+                            bullet_group.add(new_bullet)
+
+                            new_bullet = rocket(rocketlauncher.rect.right, rocketlauncher.rect.y - 40, 25, 0,
+                                                grenade_launcher_bullets[4])
                             all_sprites_group.add(new_bullet)
                             bullet_group.add(new_bullet)
                         # Up Right
@@ -391,10 +418,30 @@ class game():
                                                 grenade_launcher_bullets[2])
                             all_sprites_group.add(new_bullet)
                             bullet_group.add(new_bullet)
+
+                            new_bullet = rocket(rocketlauncher.rect.left - 40, rocketlauncher.rect.top, 0, -25,
+                                                grenade_launcher_bullets[5])
+                            all_sprites_group.add(new_bullet)
+                            bullet_group.add(new_bullet)
+
+                            new_bullet = rocket(rocketlauncher.rect.left + 40, rocketlauncher.rect.top, 0, -25,
+                                                grenade_launcher_bullets[5])
+                            all_sprites_group.add(new_bullet)
+                            bullet_group.add(new_bullet)
                         # Up Left
                         elif image == rocketlaunchers[2]:
                             new_bullet = rocket(rocketlauncher.rect.left, rocketlauncher.rect.top, 0, -25,
                                                 grenade_launcher_bullets[2])
+                            all_sprites_group.add(new_bullet)
+                            bullet_group.add(new_bullet)
+
+                            new_bullet = rocket(rocketlauncher.rect.left - 40, rocketlauncher.rect.top, 0, -25,
+                                                grenade_launcher_bullets[5])
+                            all_sprites_group.add(new_bullet)
+                            bullet_group.add(new_bullet)
+
+                            new_bullet = rocket(rocketlauncher.rect.left + 40, rocketlauncher.rect.top, 0, -25,
+                                                grenade_launcher_bullets[5])
                             all_sprites_group.add(new_bullet)
                             bullet_group.add(new_bullet)
                         # Down Right
@@ -403,12 +450,33 @@ class game():
                                                 grenade_launcher_bullets[3])
                             all_sprites_group.add(new_bullet)
                             bullet_group.add(new_bullet)
+
+                            new_bullet = rocket(rocketlauncher.rect.left - 40, rocketlauncher.rect.bottom, 0, 25,
+                                                grenade_launcher_bullets[5])
+                            all_sprites_group.add(new_bullet)
+                            bullet_group.add(new_bullet)
+
+                            new_bullet = rocket(rocketlauncher.rect.left + 40, rocketlauncher.rect.bottom, 0, 25,
+                                                grenade_launcher_bullets[5])
+                            all_sprites_group.add(new_bullet)
+                            bullet_group.add(new_bullet)
                         # Down Left
                         elif image == rocketlaunchers[5]:
                             new_bullet = rocket(rocketlauncher.rect.left, rocketlauncher.rect.bottom, 0, 25,
                                                 grenade_launcher_bullets[3])
                             all_sprites_group.add(new_bullet)
                             bullet_group.add(new_bullet)
+
+                            new_bullet = rocket(rocketlauncher.rect.left - 40, rocketlauncher.rect.bottom, 0, 25,
+                                                grenade_launcher_bullets[5])
+                            all_sprites_group.add(new_bullet)
+                            bullet_group.add(new_bullet)
+
+                            new_bullet = rocket(rocketlauncher.rect.left + 40, rocketlauncher.rect.bottom, 0, 25,
+                                                grenade_launcher_bullets[5])
+                            all_sprites_group.add(new_bullet)
+                            bullet_group.add(new_bullet)
+
 
                         # Removes a bullet
                         self.bullets -= 1
@@ -831,6 +899,7 @@ class game():
                 rocketlauncher = rocket_launcher(rocketlaunchers[0], main_player.get_pos()[1], main_player.rect.y - 20)
                 all_sprites_group.add(rocketlauncher)
 
+
             # Checks if bullet hits anything
 
             # Walls
@@ -843,6 +912,11 @@ class game():
                         walls.hit(1)
                     elif main_player.rocketlauncher:
                         walls.hit(10)
+
+                    if main_player.rocketlauncher:
+                        for bullet in bullet_group:
+                            all_sprites_group.remove(bullet)
+                            bullet_group.remove(bullet)
             # Enemies
             bullet_enemy_group = pygame.sprite.groupcollide(enemy_group, bullet_group, False, True)
             if bullet_enemy_group:
@@ -851,8 +925,14 @@ class game():
                         walls.hit(3)
                     elif main_player.machinegun:
                         walls.hit(1)
+
                     elif main_player.rocketlauncher:
                         walls.hit(10)
+
+                if main_player.rocketlauncher:
+                    for bullet in bullet_group:
+                        all_sprites_group.remove(bullet)
+                        bullet_group.remove(bullet)
 
             # Ends the level if player touches the portal
             if pygame.sprite.groupcollide(player_group, portal_group, True, True):
@@ -1108,13 +1188,13 @@ restart = list()
 # Scans through the levels directory and stores them in the levels/ restart list
 
 for root, dirs, files in os.walk('levels'):
-    for file in files:
+    for i in range(len(files)):
         temp_counter = 0
         temp_array = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
                       ""]
 
         # Opens csv file
-        with open("levels/" + file) as csvfile:
+        with open("levels/level" + str(i) + ".csv" ) as csvfile:
 
             csvreader = csv.reader(csvfile)
 
@@ -1130,6 +1210,10 @@ for root, dirs, files in os.walk('levels'):
             # Appends the array to the level list
             levels.append(temp_array)
             restart.append(temp_array)
+
+# Reverse the list so that the first level gets popped off first
+levels.reverse()
+restart.reverse()
 
 # Starts the game
 
