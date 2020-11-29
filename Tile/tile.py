@@ -521,7 +521,7 @@ class game():
                         self.bullets -= 1
 
             def set_bullets(self, bullets):
-                self.bullets += bullets
+                self.bullets = bullets
 
             def remove_guns(self):
                 if self.handgun:
@@ -754,6 +754,10 @@ class game():
                     new_rocket_launcher = rocket_launcher(rocketlaunchers[6], x, y)
                     all_sprites_group.add(new_rocket_launcher)
                     rocket_group.add(new_rocket_launcher)
+                elif block == "E":
+                    new_enemy = Enemy(x, y, 40, 40, 0, 0)
+                    all_sprites_group.add(new_enemy)
+                    enemy_group.add(new_enemy)
 
                 counter += 1
                 x += 40
