@@ -706,7 +706,7 @@ class game():
         pygame.display.set_caption("Tile")
         font = pygame.font.SysFont('Calibri', 20, True, False)
         button_font = pygame.font.SysFont('Calibri', 10, True, False)
-        restart_button = button(RED, 1020, 100, 150, 40, "Restart")
+        restart_button = button((200,0,0), 1020, 100, 150, 40, "Restart")
 
         # Loop until the user clicks the close button.
         done = False
