@@ -705,6 +705,8 @@ class game():
         screen = pygame.display.set_mode(size)
         pygame.display.set_caption("Tile")
         font = pygame.font.SysFont('Calibri', 20, True, False)
+        button_font = pygame.font.SysFont('Calibri', 10, True, False)
+        restart_button = button(RED, 1020, 100, 150, 40, "Restart")
 
         # Loop until the user clicks the close button.
         done = False
@@ -794,6 +796,7 @@ class game():
         while not done:
             # --- Main event loop
             for event in pygame.event.get():
+
                 if event.type == pygame.QUIT:
                     pygame.quit()
                 # User presses down a key
@@ -812,6 +815,11 @@ class game():
                     elif event.key == pygame.K_LEFT:
                         main_player.move_left()
 
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    mouse_position = pygame.mouse.get_pos()
+                    if restart_button.isOver(mouse_position):
+                        restart_button.color = (255, 255, 0)
+
                 # User releases a key
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_UP:
@@ -824,6 +832,14 @@ class game():
                         main_player.stop_x()
                     if event.key == pygame.K_SPACE:
                         main_player.shoot()
+
+                if event.type == pygame.MOUSEBUTTONUP:
+
+                    mouse_position = pygame.mouse.get_pos()
+                    if restart_button.isOver(mouse_position):
+                        done = True
+                        main_player.health -= 1
+                        RETURN_CODE = 1
 
                 # Checks if any key is pressed and update the player movement accordingly
                 pressed = pygame.key.get_pressed()
@@ -962,6 +978,7 @@ class game():
             # --- Drawing code should go here
             all_sprites_group.update()
             all_sprites_group.draw(screen)
+            restart_button.draw(screen)
 
             # Text to be rendered
             health_text = font.render("Lives: " + str(main_player.get_items()[0]), True, WHITE)
@@ -1113,7 +1130,7 @@ class game():
             screen.fill(BLACK)
 
             # --- Drawing code should go here
-            loose_message = font.render("You loose!", True, (255, 0, 0))
+            loose_message = font.render("You lose!", True, (255, 0, 0))
             screen.blit(loose_message, [500, 400])
 
             restart_button.draw(screen)
