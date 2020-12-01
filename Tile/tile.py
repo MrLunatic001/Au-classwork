@@ -14,7 +14,7 @@ GREY = (192, 192, 192)
 
 # Loading sprites
 
-# Defining some lists to hold the sprites
+# Defining some lists to hold the sprites images
 
 down = list()
 left = list()
@@ -72,8 +72,8 @@ for i in range(6):
             pygame.transform.scale(pygame.image.load('bullets/' + 'grenade' + str(i) + '.png'), (10, 20)))
 
 
-# Defining Classes
 
+# Defining Classes
 class button():
     def __init__(self, color, x, y, width, height, text=''):
         self.color = color
@@ -114,6 +114,7 @@ class game():
         self.storage_levels = initial_store_list
         self.restart_list = restart_list
 
+    # Pass in player health, weapon that player currently have and the map of the level
     def level(self, current_level, LIVES, handgun_bool, machinegun_bool, grenade_launcher_bool):
 
         # Defining weapons classes
@@ -134,6 +135,7 @@ class game():
             def __init__(self, image, x, y):
                 super().__init__(3, image, x, y)
 
+            # Changes position and image of guns depending on which side the player is facing
             def update(self):
                 if main_player.return_guns()[0]:
                     # Left
@@ -170,6 +172,8 @@ class game():
         class machine_gun(gun):
             def __init__(self, image, x, y):
                 super().__init__(1, image, x, y)
+
+            # Changes position and image of guns depending on which side the player is facing
 
             def update(self):
                 if main_player.return_guns()[2] == True:
@@ -213,6 +217,7 @@ class game():
             def __init__(self, image, x, y):
                 super().__init__(10, image, x, y)
 
+            # Changes position and image of guns depending on which side the player is facing
             def update(self):
                 if main_player.return_guns()[1] == True:
                     # Left
@@ -338,9 +343,11 @@ class game():
 
             # Defining functions
 
+            # Only shoots when space key is pressed down and up
             def shoot(self):
-                if self.bullets > 0:
 
+                # Produces bullets at the correct position
+                if self.bullets > 0:
                     # Handgun
                     if self.handgun:
                         image = handgun.image
@@ -482,7 +489,11 @@ class game():
                         self.bullets -= 1
 
             # Machine gun spray
+
+            # Shoots gun while space key is pressing down
             def spray(self):
+
+                # Produces bullets at the correct position
                 if self.bullets > 0:
                     if self.machinegun:
                         image = machinegun.image
@@ -597,6 +608,7 @@ class game():
             def loose_life(self):
                 self.health -= 1
 
+            # Changes position and sprite image of player
             def update(self):
                 # Check x coordinates first
                 self.rect.x += self.speed_x
@@ -616,7 +628,7 @@ class game():
                         elif self.speed_y > 0:
                             main_player.set_bottom(block.get_pos()[2])
 
-        # Enemy class inherites Player class
+        # Enemy class inherits Player class
         class Enemy(player):
             def __init__(self, x, y, width, height, speed_x, speed_y):
                 super().__init__(x, y, width, height, 3, False, False, False)
@@ -626,6 +638,7 @@ class game():
                 self.speed_x = speed_x
                 self.speed_y = speed_y
 
+            # Changes position and sprite image of enemy
             def update(self):
                 self.image = enemy_kim[self.image_count]
                 if self.image_count + 1 < 3:
@@ -681,6 +694,12 @@ class game():
             def set_image(self, image):
                 self.image = image
 
+
+
+
+
+
+
         # Create an All Sprites Group object
 
         all_sprites_group = pygame.sprite.Group()
@@ -694,6 +713,7 @@ class game():
         rocket_group = pygame.sprite.Group()
         bullet_group = pygame.sprite.Group()
 
+        # Image sprite counter
         up_counter = 0
         down_counter = 0
         right_counter = 0
@@ -1011,8 +1031,10 @@ class game():
         if RETURN_CODE == 1:
             self.level(current_level, main_player.get_items()[0], main_player.handgun, main_player.machinegun,
                        main_player.rocketlauncher)
+        # Restarts the game
         elif RETURN_CODE == 2:
             self.loose()
+        # Next Level
         elif RETURN_CODE == 3:
             # Ends the game if there are no more levels
             if len(self.storage_levels) == 0:
