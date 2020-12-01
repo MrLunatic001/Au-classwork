@@ -549,8 +549,8 @@ class game():
             def get_speed(self):
                 return self.speed_x, self.speed_y
 
-            def add_key(self):
-                self.keys += 1
+            def add_key(self, number):
+                self.keys += number
 
             def reset_keys(self):
                 self.keys = 0
@@ -705,8 +705,8 @@ class game():
         screen = pygame.display.set_mode(size)
         pygame.display.set_caption("Tile")
         font = pygame.font.SysFont('Calibri', 20, True, False)
-        button_font = pygame.font.SysFont('Calibri', 10, True, False)
         restart_button = button((200,0,0), 1020, 100, 150, 40, "Restart")
+
 
         # Loop until the user clicks the close button.
         done = False
@@ -716,6 +716,7 @@ class game():
         money = ""
 
         # Instantiate walls
+        portal_coordinates = tuple()
         y = 0
         x = 0
         counter = 1
@@ -760,6 +761,8 @@ class game():
                     new_enemy = Enemy(x, y, 40, 40, 0, 0)
                     all_sprites_group.add(new_enemy)
                     enemy_group.add(new_enemy)
+                elif block == "D":
+                    portal_coordinates = (x, y)
 
                 counter += 1
                 x += 40
@@ -858,41 +861,17 @@ class game():
 
             # --- Game logic should go here
             keys_collide_list = pygame.sprite.spritecollide(main_player, key_group, True)
-            for i in keys_collide_list:
-                main_player.add_key()
 
-            # Removes bullet if it goes out of the map
-            for bul in bullet_group:
-                if bul.get_pos()[1] < 0 or bul.get_pos()[1] > 1000:
-                    bullet_group.remove(bul)
-                    all_sprites_group.remove(bul)
-                elif bul.get_pos()[0] < 0 or bul.get_pos()[0] > 1000:
-                    bullet_group.remove(bul)
-                    all_sprites_group.remove(bul)
+            main_player.add_key(len(keys_collide_list))
 
             # Checks if all keys are collected
-
             if main_player.get_items()[1] == key_counter:
                 if not spawned:
-                    counter = 0
-                    x = 0
-                    y = 0
                     spawned = True
-
                     # Spawns a portal for the player to get to the next level
-                    for el in current_level:
-                        for bl in el:
-                            if bl == "D":
-                                new_portal = portal(x, y)
-                                all_sprites_group.add(new_portal)
-                                portal_group.add(new_portal)
-                            counter += 1
-                            x += 40
-                            # If the number of walls reaches 25 (maximum width of the window), go to the next line
-                            if counter > 25:
-                                counter = 1
-                                y += 40
-                                x = 0
+                    new_portal = portal(portal_coordinates[0], portal_coordinates[1])
+                    all_sprites_group.add(new_portal)
+                    portal_group.add(new_portal)
 
             # Checks if player picks up guns
             handgun_collide_group = pygame.sprite.spritecollide(main_player, handgun_group, True)
@@ -906,13 +885,13 @@ class game():
                 handgun = hand_gun(handguns[1], main_player.get_pos()[1], main_player.rect.y - 20)
                 main_player.set_bullets(20)
                 all_sprites_group.add(handgun)
-            if machine_collide_group:
+            elif machine_collide_group:
                 main_player.remove_guns()
                 main_player.get_machine()
                 main_player.set_bullets(100)
                 machinegun = machine_gun(machineguns[0], main_player.get_pos()[1], main_player.rect.y - 20)
                 all_sprites_group.add(machinegun)
-            if rocket_collide_group:
+            elif rocket_collide_group:
                 main_player.remove_guns()
                 main_player.get_rocket()
                 main_player.set_bullets(7)
